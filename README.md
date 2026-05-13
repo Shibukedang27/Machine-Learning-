@@ -1,3 +1,14 @@
+# Machine Learning Projects
+
+This repository contains hands-on machine learning projects that run locally and keep the setup simple. The code is written to be readable first, so each project can be understood, tested, and improved without needing a heavy framework.
+
+## Projects
+
+- Face Recognition System
+- Stock Pattern Analysis
+
+---
+
 # Face Recognition System
 
 A pure-Python face recognition learning project that runs locally with no external services. It includes a small web app, command-line tools, generated demo face data, unit tests, and a simple ML-style embedding classifier.
@@ -92,3 +103,72 @@ This is a lightweight educational recognizer, not a production-grade biometric m
 - Store data locally and delete it when it is no longer needed.
 - Do not use this to make high-stakes decisions.
 - Test on diverse lighting and camera conditions before relying on results.
+
+---
+
+# Stock Pattern Analysis
+
+A local stock-pattern analysis project that uses machine learning to study chart behavior from OHLCV data: open, high, low, close, and volume. It trains a compact logistic classifier on engineered features such as returns, moving-average distance, volatility, volume pressure, and price position inside the recent range.
+
+The output is written in plain language, for example: bullish breakout setup, trend pullback, bearish continuation risk, sideways consolidation, or mixed pattern.
+
+This project is for learning and portfolio work only. It is not financial advice, and it should not be used as the only reason to buy or sell anything.
+
+## Stock Project Features
+
+- Generate a demo stock CSV
+- Train a small ML model from price and volume behavior
+- Analyze the latest chart setup
+- Upload your own CSV in the browser app
+- Run with the Python standard library only
+- Includes automated tests
+
+## Stock Quick Start
+
+Generate demo stock data:
+
+```bash
+python3 -m src.stock_pattern_analysis.cli generate-demo --output data/stocks/demo_stock.csv
+```
+
+Train the model:
+
+```bash
+python3 -m src.stock_pattern_analysis.cli train --csv data/stocks/demo_stock.csv --model models/stock_pattern_model.json
+```
+
+Analyze the latest pattern:
+
+```bash
+python3 -m src.stock_pattern_analysis.cli analyze --csv data/stocks/demo_stock.csv --model models/stock_pattern_model.json
+```
+
+Run the web app:
+
+```bash
+python3 -m src.stock_pattern_analysis.app --host 127.0.0.1 --port 8010
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8010
+```
+
+## CSV Format
+
+Use a CSV with these columns:
+
+```text
+date,open,high,low,close,volume
+```
+
+The app expects at least 25 rows so it can calculate trend and volatility features properly.
+
+## Testing
+
+Run all tests:
+
+```bash
+python3 -m unittest discover -s tests
+```
