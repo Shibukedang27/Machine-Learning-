@@ -6,6 +6,7 @@ This repository contains hands-on machine learning projects that run locally and
 
 - Face Recognition System
 - Stock Pattern Analysis
+- WiFi Motion Radar
 
 ---
 
@@ -172,3 +173,65 @@ Run all tests:
 ```bash
 python3 -m unittest discover -s tests
 ```
+
+---
+
+# WiFi Motion Radar
+
+A local machine-learning project that treats WiFi signal changes like a small radar trace. Instead of using a camera, it studies synthetic CSI-like signal readings across subcarriers and learns motion fingerprints from the way the signal bends over time.
+
+The demo can estimate whether the room looks empty or active, then match the latest movement window to the closest trained profile, such as `Aarav_walking`, `Maya_walking`, or `visitor_moving`.
+
+This is a learning project, not a surveillance tool. Real WiFi sensing should only be used in spaces where people clearly know about it and agree to it.
+
+## WiFi Project Features
+
+- Generate synthetic WiFi signal data
+- Extract motion-window features from subcarrier readings
+- Train a nearest-profile machine learning model
+- Predict the latest room movement profile
+- Upload a CSV in the browser app
+- Run with the Python standard library only
+- Includes automated tests
+
+## WiFi Quick Start
+
+Generate demo WiFi signal data:
+
+```bash
+python3 -m src.wifi_motion_radar.cli generate-demo --output data/wifi/demo_wifi_signals.csv
+```
+
+Train the model:
+
+```bash
+python3 -m src.wifi_motion_radar.cli train --csv data/wifi/demo_wifi_signals.csv --model models/wifi_motion_model.json
+```
+
+Analyze the latest room movement:
+
+```bash
+python3 -m src.wifi_motion_radar.cli predict --csv data/wifi/demo_wifi_signals.csv --model models/wifi_motion_model.json
+```
+
+Run the web app:
+
+```bash
+python3 -m src.wifi_motion_radar.app --host 127.0.0.1 --port 8020
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8020
+```
+
+## WiFi CSV Format
+
+Use a CSV with:
+
+```text
+timestamp,label,subcarrier_1,subcarrier_2,...,subcarrier_16
+```
+
+The `label` column is used for training. For a real experiment, labels should come from people who know they are participating.
