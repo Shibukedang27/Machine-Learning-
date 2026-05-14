@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RetroOS Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell" aria-label="RetroOS Calculator">
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <p class="eyebrow">ColorOS inspired calculator</p>
+          <h1>RetroOS Calc</h1>
+          <p class="hero-text">A personal calculator that learns your task type locally, suggests useful modes, stores history on this device, and helps shape exam-ready solution steps.</p>
+        </div>
+        <div class="crt-badge" aria-hidden="true">
+          <span>ON DEVICE</span>
+          <strong>ML</strong>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="profile-card" aria-label="Personal setup">
+          <div class="section-title">
+            <span class="dot"></span>
+            <h2>Identity</h2>
+          </div>
+          <label>
+            Age
+            <input id="age-input" type="number" min="5" max="100" placeholder="16">
+          </label>
+          <label>
+            Profession
+            <select id="profession-input">
+              <option value="student">Student</option>
+              <option value="engineer">Engineer</option>
+              <option value="designer">Designer</option>
+              <option value="business">Business</option>
+              <option value="teacher">Teacher</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <button class="primary-action" id="save-profile" type="button">Save Profile</button>
+          <div class="suggestion-box">
+            <p class="mini-label">Suggested focus</p>
+            <strong id="focus-title">Algebra trainer</strong>
+            <span id="focus-desc">Great for equations, factors, powers, and step-by-step school work.</span>
+          </div>
+        </aside>
+
+        <section class="calculator-card" aria-label="Calculator">
+          <div class="display">
+            <div class="status-row">
+              <span id="intent-pill">Intent: arithmetic</span>
+              <button id="exam-toggle" type="button" aria-pressed="false">Exam Mode</button>
+            </div>
+            <input id="expression" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" aria-label="Calculation input" placeholder="Type or tap a calculation">
+            <output id="result" aria-live="polite">0</output>
+          </div>
+
+          <div class="mode-strip" aria-label="Calculation modes">
+            <button class="mode active" type="button" data-mode="basic">Basic</button>
+            <button class="mode" type="button" data-mode="algebra">Algebra</button>
+            <button class="mode" type="button" data-mode="finance">Finance</button>
+            <button class="mode" type="button" data-mode="science">Science</button>
+          </div>
+
+          <div class="keypad" aria-label="Calculator keypad">
+            <button type="button" data-key="clear" class="utility">AC</button>
+            <button type="button" data-key="back" class="utility">DEL</button>
+            <button type="button" data-insert="(" class="utility">(</button>
+            <button type="button" data-insert=")" class="utility">)</button>
+            <button type="button" data-insert="7">7</button>
+            <button type="button" data-insert="8">8</button>
+            <button type="button" data-insert="9">9</button>
+            <button type="button" data-insert="/" class="operator">/</button>
+            <button type="button" data-insert="4">4</button>
+            <button type="button" data-insert="5">5</button>
+            <button type="button" data-insert="6">6</button>
+            <button type="button" data-insert="*" class="operator">*</button>
+            <button type="button" data-insert="1">1</button>
+            <button type="button" data-insert="2">2</button>
+            <button type="button" data-insert="3">3</button>
+            <button type="button" data-insert="-" class="operator">-</button>
+            <button type="button" data-insert="0">0</button>
+            <button type="button" data-insert=".">.</button>
+            <button type="button" data-key="equals" class="equals">=</button>
+            <button type="button" data-insert="+" class="operator">+</button>
+          </div>
+        </section>
+
+        <aside class="assistant-card" aria-label="Assistant tools">
+          <div class="section-title">
+            <span class="dot alt"></span>
+            <h2>Live Assist</h2>
+          </div>
+          <div class="assistant-actions">
+            <label class="upload-tile" for="image-input">
+              <input id="image-input" type="file" accept="image/*">
+              <span>Insert image</span>
+              <small id="image-name">No image selected</small>
+            </label>
+            <button id="voice-button" class="voice-button" type="button">Start Voice</button>
+          </div>
+          <div class="voice-log" id="voice-log">Voice commands can calculate expressions like “calculate 45 divided by 5”.</div>
+          <div class="steps-panel">
+            <p class="mini-label">Step-by-step solution</p>
+            <ol id="steps-list"></ol>
+          </div>
+        </aside>
+      </section>
+
+      <section class="history-panel" aria-label="Local calculation history">
+        <div class="section-title">
+          <span class="dot history"></span>
+          <h2>Stored on this device</h2>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
