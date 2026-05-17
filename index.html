@@ -3,122 +3,112 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>RetroOS Calculator</title>
+    <title>TextClassify ML</title>
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
-    <main class="app-shell" aria-label="RetroOS Calculator">
-      <section class="hero-panel">
-        <div class="hero-copy">
-          <p class="eyebrow">ColorOS inspired calculator</p>
-          <h1>RetroOS Calc</h1>
-          <p class="hero-text">A personal calculator that learns your task type locally, suggests useful modes, stores history on this device, and helps shape exam-ready solution steps.</p>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Browser machine learning</p>
+          <h1>TextClassify</h1>
         </div>
-        <div class="crt-badge" aria-hidden="true">
-          <span>ON DEVICE</span>
-          <strong>ML</strong>
-        </div>
-      </section>
+        <div class="model-chip" id="model-chip">Naive Bayes</div>
+      </header>
 
-      <section class="workspace">
-        <aside class="profile-card" aria-label="Personal setup">
-          <div class="section-title">
-            <span class="dot"></span>
-            <h2>Identity</h2>
-          </div>
-          <label>
-            Age
-            <input id="age-input" type="number" min="5" max="100" placeholder="16">
-          </label>
-          <label>
-            Profession
-            <select id="profession-input">
-              <option value="student">Student</option>
-              <option value="engineer">Engineer</option>
-              <option value="designer">Designer</option>
-              <option value="business">Business</option>
-              <option value="teacher">Teacher</option>
-              <option value="other">Other</option>
-            </select>
-          </label>
-          <button class="primary-action" id="save-profile" type="button">Save Profile</button>
-          <div class="suggestion-box">
-            <p class="mini-label">Suggested focus</p>
-            <strong id="focus-title">Algebra trainer</strong>
-            <span id="focus-desc">Great for equations, factors, powers, and step-by-step school work.</span>
-          </div>
-        </aside>
-
-        <section class="calculator-card" aria-label="Calculator">
-          <div class="display">
-            <div class="status-row">
-              <span id="intent-pill">Intent: arithmetic</span>
-              <button id="exam-toggle" type="button" aria-pressed="false">Exam Mode</button>
+      <section class="hero-grid">
+        <article class="panel classifier-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Predict</p>
+              <h2>Classify text</h2>
             </div>
-            <input id="expression" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" aria-label="Calculation input" placeholder="Type or tap a calculation">
-            <output id="result" aria-live="polite">0</output>
+            <button class="ghost-button" id="clear-text" type="button">Clear</button>
           </div>
 
-          <div class="mode-strip" aria-label="Calculation modes">
-            <button class="mode active" type="button" data-mode="basic">Basic</button>
-            <button class="mode" type="button" data-mode="algebra">Algebra</button>
-            <button class="mode" type="button" data-mode="finance">Finance</button>
-            <button class="mode" type="button" data-mode="science">Science</button>
+          <label class="input-label" for="text-input">Input text</label>
+          <textarea id="text-input" rows="8" placeholder="Paste a review, support message, or short note...">The product arrived quickly and the support team was helpful.</textarea>
+
+          <div class="action-row">
+            <button class="primary-button" id="classify-button" type="button">Classify</button>
+            <button class="secondary-button" id="train-button" type="button">Train model</button>
           </div>
 
-          <div class="keypad" aria-label="Calculator keypad">
-            <button type="button" data-key="clear" class="utility">AC</button>
-            <button type="button" data-key="back" class="utility">DEL</button>
-            <button type="button" data-insert="(" class="utility">(</button>
-            <button type="button" data-insert=")" class="utility">)</button>
-            <button type="button" data-insert="7">7</button>
-            <button type="button" data-insert="8">8</button>
-            <button type="button" data-insert="9">9</button>
-            <button type="button" data-insert="/" class="operator">/</button>
-            <button type="button" data-insert="4">4</button>
-            <button type="button" data-insert="5">5</button>
-            <button type="button" data-insert="6">6</button>
-            <button type="button" data-insert="*" class="operator">*</button>
-            <button type="button" data-insert="1">1</button>
-            <button type="button" data-insert="2">2</button>
-            <button type="button" data-insert="3">3</button>
-            <button type="button" data-insert="-" class="operator">-</button>
-            <button type="button" data-insert="0">0</button>
-            <button type="button" data-insert=".">.</button>
-            <button type="button" data-key="equals" class="equals">=</button>
-            <button type="button" data-insert="+" class="operator">+</button>
+          <div class="prediction-card" aria-live="polite">
+            <span class="prediction-label">Prediction</span>
+            <strong id="prediction">Positive</strong>
+            <div class="confidence-track" aria-label="Prediction confidence">
+              <span id="confidence-bar"></span>
+            </div>
+            <p id="confidence-text">Confidence 86%</p>
           </div>
-        </section>
+        </article>
 
-        <aside class="assistant-card" aria-label="Assistant tools">
-          <div class="section-title">
-            <span class="dot alt"></span>
-            <h2>Live Assist</h2>
+        <aside class="panel insight-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Model</p>
+              <h2>Training summary</h2>
+            </div>
           </div>
-          <div class="assistant-actions">
-            <label class="upload-tile" for="image-input">
-              <input id="image-input" type="file" accept="image/*">
-              <span>Insert image</span>
-              <small id="image-name">No image selected</small>
-            </label>
-            <button id="voice-button" class="voice-button" type="button">Start Voice</button>
+          <div class="metric-grid">
+            <div>
+              <span>Samples</span>
+              <strong id="sample-count">0</strong>
+            </div>
+            <div>
+              <span>Classes</span>
+              <strong id="class-count">0</strong>
+            </div>
+            <div>
+              <span>Vocabulary</span>
+              <strong id="vocab-count">0</strong>
+            </div>
+            <div>
+              <span>Accuracy</span>
+              <strong id="accuracy">0%</strong>
+            </div>
           </div>
-          <div class="voice-log" id="voice-log">Voice commands can calculate expressions like “calculate 45 divided by 5”.</div>
-          <div class="steps-panel">
-            <p class="mini-label">Step-by-step solution</p>
-            <ol id="steps-list"></ol>
+          <div class="explain-box">
+            <span>Top signals</span>
+            <div id="signals" class="signals"></div>
           </div>
         </aside>
       </section>
 
-      <section class="history-panel" aria-label="Local calculation history">
-        <div class="section-title">
-          <span class="dot history"></span>
-          <h2>Stored on this device</h2>
+      <section class="panel dataset-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Dataset</p>
+            <h2>Training examples</h2>
+          </div>
+          <button class="ghost-button" id="reset-data" type="button">Reset</button>
         </div>
-        <div id="history-list" class="history-list"></div>
+
+        <form class="sample-form" id="sample-form">
+          <input id="sample-text" type="text" placeholder="Add a training sentence">
+          <select id="sample-label" aria-label="Training label">
+            <option value="Positive">Positive</option>
+            <option value="Negative">Negative</option>
+            <option value="Question">Question</option>
+          </select>
+          <button class="secondary-button" type="submit">Add sample</button>
+        </form>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Text</th>
+                <th>Label</th>
+              </tr>
+            </thead>
+            <tbody id="dataset-body"></tbody>
+          </table>
+        </div>
       </section>
     </main>
+
     <script src="app.js"></script>
   </body>
 </html>
